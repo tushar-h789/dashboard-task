@@ -1,4 +1,4 @@
-export function SearchIcon({ className }: { className?: string }) {
+export function HomeIcon({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

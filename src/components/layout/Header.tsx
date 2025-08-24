@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { Button } from "../ui";
-import { Bell, Menu, Plus, Search } from "lucide-react";
-import { NotificationIcon } from "@/assets/icons/notification-icon";
+import { Menu } from "lucide-react";
 import { SearchIcon } from "@/assets/icons/search-icon";
 
 export function Header({
@@ -13,8 +11,6 @@ export function Header({
   isMobile: boolean;
   sidebarOpen: boolean;
 }) {
-  const [notifications] = useState(3);
-
   return (
     <header
       className={`
@@ -61,7 +57,11 @@ export function Header({
           <div className="relative">
             <Button variant="ghost" size="sm" className="p-2 relative">
               {/* <NotificationIcon className="w-12 h-12" /> */}
-              <img src="/src/assets/images/notification.png" alt="notification" className="" />
+              <img
+                src="/src/assets/images/notification.png"
+                alt="notification"
+                className=""
+              />
             </Button>
           </div>
           {/* <Button variant="outline" size="sm" className="hidden md:flex">

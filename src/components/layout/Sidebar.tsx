@@ -1,23 +1,22 @@
 import {
   X,
-  Home,
   Users,
-  Building,
-  RefreshCw,
-  Target,
   Tag,
-  Palette,
   Package,
   Settings,
-  Puzzle,
-  HelpCircle,
   MoreHorizontal,
   ChevronUp,
   ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { LogoIcon } from "@/assets/icons/logo-icon";
+import { HomeIcon } from "@/assets/icons/home-icon";
+import { DepartmentIcon } from "@/assets/icons/department-icon";
+import { AdjustmentIcon } from "@/assets/icons/adjustment-icon";
+import { LeadsIcon } from "@/assets/icons/leads-icon";
+import { CustomizationIcon } from "@/assets/icons/customization-icon";
+import { IntegrationsIcon } from "@/assets/icons/integrations-icon";
+import { FaqsIcon } from "@/assets/icons/faqs-icon";
 
 // ====== SIDEBAR COMPONENT ======
 export function Sidebar({
@@ -30,39 +29,39 @@ export function Sidebar({
   isMobile: boolean;
 }) {
   const sidebarItems = [
-    { icon: Home, label: "Home", active: false },
+    { icon: HomeIcon, label: "Home", active: true },
     {
       category: "TEAM MANAGEMENT",
       items: [
-        { icon: Users, label: "Members", count: 24 },
-        { icon: Building, label: "Departments", count: 8 },
-        { icon: RefreshCw, label: "Bulk Adjustments" },
+        { icon: Users, label: "Members" },
+        { icon: DepartmentIcon, label: "Departments" },
+        { icon: AdjustmentIcon, label: "Bulk Adjustments" },
       ],
     },
     {
       category: "LEADS MANAGEMENT",
       items: [
-        { icon: Target, label: "Leads", active: true, count: 156 },
-        { icon: Tag, label: "Tags", count: 12 },
+        { icon: LeadsIcon, label: "Leads" },
+        { icon: Tag, label: "Tags" },
       ],
     },
     {
       category: "BRAND & PRODUCTS",
       items: [
-        { icon: Palette, label: "Customization" },
-        { icon: Package, label: "Products", count: 32 },
+        { icon: CustomizationIcon, label: "Customization" },
+        { icon: Package, label: "Products" },
       ],
     },
     {
       category: "CONFIGURATION",
       items: [
-        { icon: Puzzle, label: "Integrations", count: 5 },
+        { icon: IntegrationsIcon, label: "Integrations" },
         { icon: Settings, label: "Settings" },
       ],
     },
     {
       category: "SUPPORT",
-      items: [{ icon: HelpCircle, label: "FAQs" }],
+      items: [{ icon: FaqsIcon, label: "FAQs" }],
     },
   ];
 
@@ -129,7 +128,7 @@ export function Sidebar({
               return (
                 <div key={index} className="mb-6">
                   {(isOpen || isMobile) && (
-                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">
+                    <h3 className="text-xs font-semibold text-[#ADADAD] uppercase tracking-wider mb-3 mt-6 px-3">
                       {item.category}
                     </h3>
                   )}
@@ -142,7 +141,7 @@ export function Sidebar({
                           w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 group mb-1
                           ${
                             subItem.active
-                              ? "bg-purple-50 text-purple-700 border border-purple-200"
+                              ? "bg-[#6828EE] text-[#6828EE] border border-[#6828EE]"
                               : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                           }
                           ${
@@ -155,21 +154,23 @@ export function Sidebar({
                         <div className="flex items-center gap-3">
                           <IconComponent
                             className={`w-5 h-5 flex-shrink-0 ${
-                              subItem.active ? "text-purple-600" : ""
+                              subItem.active ? "text-[#6828EE]" : ""
                             }`}
                           />
                           {(isOpen || isMobile) && (
-                            <span className="font-medium">{subItem.label}</span>
+                            <span className="font-medium text-sm text-[#363636]">
+                              {subItem.label}
+                            </span>
                           )}
                         </div>
-                        {(isOpen || isMobile) && subItem.count && (
+                        {/* {(isOpen || isMobile) && subItem.count && (
                           <Badge
                             variant="secondary"
                             className="text-xs bg-gray-100 text-gray-600"
                           >
                             {subItem.count}
                           </Badge>
-                        )}
+                        )} */}
                       </button>
                     );
                   })}
