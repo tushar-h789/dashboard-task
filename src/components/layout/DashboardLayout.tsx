@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
-import { LeadsTable } from "../dashboard/LeadsTable";
 
-export default function DashboardLayout() {
+interface DashboardLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -44,11 +47,11 @@ export default function DashboardLayout() {
 
         <main
           className={`
-          flex-1 p-6 transition-all duration-300
+          flex-1 transition-all duration-300
           ${isMobile ? "ml-0" : sidebarOpen ? "ml-64" : "ml-16"}
         `}
         >
-          <LeadsTable />
+          {children}
         </main>
       </div>
     </div>

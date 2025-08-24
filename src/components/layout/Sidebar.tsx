@@ -17,6 +17,7 @@ import { LeadsIcon } from "@/assets/icons/leads-icon";
 import { CustomizationIcon } from "@/assets/icons/customization-icon";
 import { IntegrationsIcon } from "@/assets/icons/integrations-icon";
 import { FaqsIcon } from "@/assets/icons/faqs-icon";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // ====== SIDEBAR COMPONENT ======
 export function Sidebar({
@@ -28,40 +29,55 @@ export function Sidebar({
   onToggle: () => void;
   isMobile: boolean;
 }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const sidebarItems = [
-    { icon: HomeIcon, label: "Home", active: true },
+    { icon: HomeIcon, label: "Home", path: "/home" },
     {
       category: "TEAM MANAGEMENT",
       items: [
-        { icon: Users, label: "Members" },
-        { icon: DepartmentIcon, label: "Departments" },
-        { icon: AdjustmentIcon, label: "Bulk Adjustments" },
+        { icon: Users, label: "Members", path: "/members" },
+        { icon: DepartmentIcon, label: "Departments", path: "/departments" },
+        {
+          icon: AdjustmentIcon,
+          label: "Bulk Adjustments",
+          path: "/bulk-adjustments",
+        },
       ],
     },
     {
       category: "LEADS MANAGEMENT",
       items: [
-        { icon: LeadsIcon, label: "Leads" },
-        { icon: Tag, label: "Tags" },
+        { icon: LeadsIcon, label: "Leads", path: "/leads" },
+        { icon: Tag, label: "Tags", path: "/tags" },
       ],
     },
     {
       category: "BRAND & PRODUCTS",
       items: [
-        { icon: CustomizationIcon, label: "Customization" },
-        { icon: Package, label: "Products" },
+        {
+          icon: CustomizationIcon,
+          label: "Customization",
+          path: "/customization",
+        },
+        { icon: Package, label: "Products", path: "/products" },
       ],
     },
     {
       category: "CONFIGURATION",
       items: [
-        { icon: IntegrationsIcon, label: "Integrations" },
-        { icon: Settings, label: "Settings" },
+        {
+          icon: IntegrationsIcon,
+          label: "Integrations",
+          path: "/integrations",
+        },
+        { icon: Settings, label: "Settings", path: "/settings" },
       ],
     },
     {
       category: "SUPPORT",
-      items: [{ icon: FaqsIcon, label: "FAQs" }],
+      items: [{ icon: FaqsIcon, label: "FAQs", path: "/faqs" }],
     },
   ];
 
@@ -134,14 +150,16 @@ export function Sidebar({
                   )}
                   {item.items.map((subItem, subIndex: number) => {
                     const IconComponent = subItem.icon as React.ElementType;
+                    const isActive = location.pathname === subItem.path;
                     return (
                       <button
                         key={subIndex}
+                        onClick={() => navigate(subItem.path)}
                         className={`
                           w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 group mb-1
                           ${
-                            subItem.active
-                              ? "bg-[#6828EE] text-[#6828EE] border border-[#6828EE]"
+                            isActive
+                              ? "bg-purple-50 text-purple-700 border border-purple-200"
                               : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                           }
                           ${
@@ -154,7 +172,7 @@ export function Sidebar({
                         <div className="flex items-center gap-3">
                           <IconComponent
                             className={`w-5 h-5 flex-shrink-0 ${
-                              subItem.active ? "text-[#6828EE]" : ""
+                              isActive ? "text-purple-600" : ""
                             }`}
                           />
                           {(isOpen || isMobile) && (
@@ -178,13 +196,16 @@ export function Sidebar({
               );
             } else {
               const IconComponent = item.icon as React.ElementType;
+              const isActive =
+                location.pathname === item.path || location.pathname === "/";
               return (
                 <button
                   key={index}
+                  onClick={() => navigate(item.path)}
                   className={`
                     w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 mb-2
                     ${
-                      item.active
+                      isActive
                         ? "bg-purple-50 text-purple-700 border border-purple-200"
                         : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                     }
@@ -193,7 +214,7 @@ export function Sidebar({
                 >
                   <IconComponent
                     className={`w-5 h-5 flex-shrink-0 ${
-                      item.active ? "text-purple-600" : ""
+                      isActive ? "text-purple-600" : ""
                     }`}
                   />
                   {(isOpen || isMobile) && (
