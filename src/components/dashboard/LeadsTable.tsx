@@ -3,39 +3,42 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import {
-  Filter,
-  Download,
-  Star,
-  Crown,
-  Plus,
-  MoreHorizontal,
-} from "lucide-react";
+import { Filter, Download, Plus, X } from "lucide-react";
 import { ExportStarIcon } from "@/assets/icons/export-start-icon";
 import { ExportPIcon } from "@/assets/icons/export-p-icon";
 import { ExportHubspotIcon } from "@/assets/icons/export-hubspot-icon";
+
+interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  tags: string[];
+  connectedWith: {
+    name: string;
+    email: string;
+    avatar: string;
+  };
+  date: string;
+  exportType: "export" | "star" | "crown";
+  status: string;
+  score: number;
+}
 
 export function LeadsTable() {
   const [selectedLeads, setSelectedLeads] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState("leads");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  interface Lead {
-    id: string;
-    name: string;
-    email: string;
-    tags: string[];
-    connectedWith: {
-      name: string;
-      email: string;
-      avatar: string;
-    };
-    date: string;
-    exportType: "export" | "star" | "crown";
-    status: string;
-    score: number;
-  }
-
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  
+  // Filter states
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    status: [] as string[],
+    exportType: [] as string[],
+    tags: [] as string[],
+    dateRange: "",
+    searchQuery: ""
+  });
 
   const tabs = [
     { id: "leads", name: "Leads" },
@@ -72,7 +75,6 @@ export function LeadsTable() {
     },
     {
       id: "2",
-
       name: "Hande Yilmaz",
       email: "hande@example.com",
       tags: [],
@@ -88,7 +90,6 @@ export function LeadsTable() {
     },
     {
       id: "3",
-
       name: "Demir Vural",
       email: "demir@test.com",
       tags: [
@@ -112,7 +113,6 @@ export function LeadsTable() {
     },
     {
       id: "4",
-
       name: "Sarah Johnson",
       email: "sarah@techcorp.com",
       tags: [
@@ -135,7 +135,6 @@ export function LeadsTable() {
     },
     {
       id: "5",
-
       name: "Michael Chen",
       email: "michael@startup.io",
       tags: ["Startup", "Demo Day", "Team", "Enterprise"],
@@ -151,9 +150,40 @@ export function LeadsTable() {
     },
   ];
 
+  // Get unique values for filter options
+  const getUniqueExportTypes = () => [...new Set(leadsData.map(lead => lead.exportType))];
+  const getUniqueTags = () => [...new Set(leadsData.flatMap(lead => lead.tags))];
+
+  // Filter leads based on current filters
+  const filteredLeads = leadsData.filter(lead => {
+    // Search query filter
+    if (filters.searchQuery) {
+      const query = filters.searchQuery.toLowerCase();
+      const matchesName = lead.name.toLowerCase().includes(query);
+      const matchesEmail = lead.email.toLowerCase().includes(query);
+      const matchesTags = lead.tags.some(tag => tag.toLowerCase().includes(query));
+      if (!matchesName && !matchesEmail && !matchesTags) return false;
+    }
+
+
+
+    // Export type filter
+    if (filters.exportType.length > 0 && !filters.exportType.includes(lead.exportType)) {
+      return false;
+    }
+
+    // Tags filter
+    if (filters.tags.length > 0) {
+      const hasMatchingTag = filters.tags.some(filterTag => lead.tags.includes(filterTag));
+      if (!hasMatchingTag) return false;
+    }
+
+    return true;
+  });
+
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedLeads(leadsData.map((lead) => lead.id));
+      setSelectedLeads(filteredLeads.map((lead) => lead.id));
     } else {
       setSelectedLeads([]);
     }
@@ -165,6 +195,30 @@ export function LeadsTable() {
     } else {
       setSelectedLeads((prev) => prev.filter((id) => id !== leadId));
     }
+  };
+
+  const handleFilterChange = (filterType: keyof typeof filters, value: any) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: value
+    }));
+  };
+
+
+
+  const clearAllFilters = () => {
+    setFilters({
+      status: [],
+      exportType: [],
+      tags: [],
+      dateRange: "",
+      searchQuery: ""
+    });
+  };
+
+  const getActiveFiltersCount = () => {
+    return filters.exportType.length + filters.tags.length + 
+           (filters.searchQuery ? 1 : 0) + (filters.dateRange ? 1 : 0);
   };
 
   const getTagColor = (tag: string) => {
@@ -258,20 +312,92 @@ export function LeadsTable() {
 
           {/* Actions */}
           <div className="flex gap-3">
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setShowFilters(!showFilters)}
+              className={getActiveFiltersCount() > 0 ? "bg-blue-50 border-blue-200" : ""}
+            >
               <Filter className="w-4 h-4 mr-2" />
               Filter
+              {getActiveFiltersCount() > 0 && (
+                <Badge className="ml-2 bg-blue-500 text-white text-xs px-1 py-0 h-4 min-w-4 flex items-center justify-center">
+                  {getActiveFiltersCount()}
+                </Badge>
+              )}
             </Button>
             <Button variant="outline" size="sm">
               <Download className="w-4 h-4 mr-2" />
               Export ({selectedLeads.length})
             </Button>
-            <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
-              <Plus className="w-4 h-4 mr-2" />
-              Add Lead
-            </Button>
           </div>
         </div>
+
+        {/* Filter Panel */}
+        {showFilters && (
+          <div className="mt-4 p-4 bg-gray-50 rounded-lg border">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-sm font-medium text-gray-900">Filters</h3>
+              {getActiveFiltersCount() > 0 && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={clearAllFilters}
+                  className="text-xs text-gray-500"
+                >
+                  Clear all
+                </Button>
+              )}
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* Search */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-2">Search</label>
+                <input
+                  type="text"
+                  placeholder="Search leads..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                  value={filters.searchQuery}
+                  onChange={(e) => handleFilterChange('searchQuery', e.target.value)}
+                />
+              </div>
+
+
+              {/* Export Type Filter */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-2">Export Type</label>
+                <div className="space-y-2">
+                  {getUniqueExportTypes().map(type => (
+                    <label key={type} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={filters.exportType.includes(type)}
+                        onCheckedChange={() => handleCheckboxFilter('exportType', type)}
+                      />
+                      <span className="text-sm text-gray-700 capitalize">{type}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tags Filter */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-2">Tags</label>
+                <div className="space-y-2 max-h-32 overflow-y-auto">
+                  {getUniqueTags().map(tag => (
+                    <label key={tag} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={filters.tags.includes(tag)}
+                        onCheckedChange={() => handleCheckboxFilter('tags', tag)}
+                      />
+                      <span className="text-sm text-gray-700">{tag}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </CardHeader>
 
       <CardContent className="p-0">
@@ -291,7 +417,7 @@ export function LeadsTable() {
                     >
                       {header.isCheckbox ? (
                         <Checkbox
-                          checked={selectedLeads.length === leadsData.length}
+                          checked={selectedLeads.length === filteredLeads.length && filteredLeads.length > 0}
                           onCheckedChange={handleSelectAll}
                         />
                       ) : (
@@ -303,7 +429,7 @@ export function LeadsTable() {
               </thead>
 
               <tbody>
-                {leadsData.map((lead) => {
+                {filteredLeads.map((lead) => {
                   return (
                     <tr
                       key={lead.id}
