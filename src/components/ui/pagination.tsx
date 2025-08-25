@@ -22,12 +22,12 @@ export function Pagination({
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 px-4 py-3 border-t border-gray-100">
-      {/* Keep the same text; allow wrapping on small screens */}
+      
       <div className="text-sm text-gray-600 text-center sm:text-left whitespace-normal">
         Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, total)} of {total}
       </div>
 
-      {/* Same button group; just responsive sizing on mobile */}
+      
       <div className="inline-flex w-full sm:w-auto rounded-md shadow-sm" role="group">
         <button
           type="button"
