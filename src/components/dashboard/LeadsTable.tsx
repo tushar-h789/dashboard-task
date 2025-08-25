@@ -57,9 +57,10 @@ export function LeadsTable() {
       email: "efehan@acme.com",
       tags: ["Team", "Enterprise", "GITEX DUBAI", "Summit", "Team"],
       connectedWith: {
+        avatar: "/src/assets/images/connected-avater.png",
         name: "Efehan Coskun",
         email: "efehan@alignui.com",
-        avatar: "EC",
+        // avatar: "EC",
       },
       date: "Tuesday Aug 04 - 2025",
       exportType: "export",
@@ -68,13 +69,14 @@ export function LeadsTable() {
     },
     {
       id: "2",
+
       name: "Hande Yilmaz",
       email: "hande@example.com",
       tags: [],
       connectedWith: {
         name: "Hande Yilmaz",
         email: "hande@alignui.com",
-        avatar: "HY",
+        avatar: "/src/assets/images/profile-avatar.png",
       },
       date: "Tuesday Aug 04 - 2025",
       exportType: "star",
@@ -83,6 +85,7 @@ export function LeadsTable() {
     },
     {
       id: "3",
+
       name: "Demir Vural",
       email: "demir@test.com",
       tags: [
@@ -97,7 +100,7 @@ export function LeadsTable() {
       connectedWith: {
         name: "Demir Vural",
         email: "demir@alignui.com",
-        avatar: "DV",
+        avatar: "/src/assets/images/connected-avater.png",
       },
       date: "Tuesday Aug 04 - 2025",
       exportType: "crown",
@@ -106,6 +109,7 @@ export function LeadsTable() {
     },
     {
       id: "4",
+
       name: "Sarah Johnson",
       email: "sarah@techcorp.com",
       tags: [
@@ -119,7 +123,7 @@ export function LeadsTable() {
       connectedWith: {
         name: "Sarah Johnson",
         email: "sarah@alignui.com",
-        avatar: "SJ",
+        avatar: "/src/assets/images/connected-avater.png",
       },
       date: "Tuesday Aug 04 - 2025",
       exportType: "export",
@@ -128,13 +132,14 @@ export function LeadsTable() {
     },
     {
       id: "5",
+
       name: "Michael Chen",
       email: "michael@startup.io",
       tags: ["Startup", "Demo Day", "Team", "Enterprise"],
       connectedWith: {
         name: "Michael Chen",
         email: "michael@alignui.com",
-        avatar: "MC",
+        avatar: "/src/assets/images/connected-avater.png",
       },
       date: "Tuesday Aug 04 - 2025",
       exportType: "star",
@@ -399,13 +404,25 @@ export function LeadsTable() {
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-700 text-xs font-semibold">
-                            {lead.connectedWith.avatar}
+                            {/* {lead.connectedWith.avatar} */}
+                            {lead.connectedWith.avatar ? (
+                              <img
+                                src={lead.connectedWith.avatar}
+                                alt="connected avatar"
+                                className="w-full h-full object-cover rounded-full"
+                              />
+                            ) : (
+                              lead.connectedWith.name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")
+                            )}
                           </div>
                           <div>
-                            <p className="font-medium text-gray-900 text-sm">
+                            <p className=" text-[#171717] text-sm">
                               {lead.connectedWith.name}
                             </p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-[#5C5C5C]">
                               {lead.connectedWith.email}
                             </p>
                           </div>
