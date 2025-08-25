@@ -3,30 +3,35 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Download } from "lucide-react";
-import { leadsData } from "@/assets/data/leads";
 import type { Lead } from "@/types/lead";
 import type { Filters } from "@/types/filters";
 import { LeadsFiltersButton, LeadsFiltersContent } from "./LeadsFiltersPanel";
 import { LeadRow } from "./LeadRow";
 import { Pagination } from "@/components/ui/pagination";
+import { useLeadsStore } from "@/store/leadsStore";
 
 export function LeadsTable() {
-  const [selectedLeads, setSelectedLeads] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState("leads");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
 
-  // Filter states
-  const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState<Filters>({
-    status: [],
-    exportType: [],
-    tags: [],
-    dateRange: "",
-    searchQuery: "",
-  });
-  const [page, setPage] = useState(1);
-  const pageSize = 5;
+  // Zustand store
+  const {
+    leads,
+    selectedLeads,
+    showFilters,
+    filters,
+    page,
+    pageSize,
+    setShowFilters,
+    setFilters,
+    toggleCheckboxFilter,
+    clearAllFilters,
+    setPage,
+    selectAll,
+    clearSelection,
+    toggleSelect,
+  } = useLeadsStore();
 
   const tabs = [
     { id: "leads", name: "Leads" },
@@ -46,16 +51,14 @@ export function LeadsTable() {
 
   // Get unique values for filter options
   const getUniqueExportTypes = () => [
-    ...new Set(leadsData.map((lead) => lead.exportType)),
+    ...new Set(leads.map((lead) => lead.exportType)),
   ];
-  const getUniqueTags = () => [
-    ...new Set(leadsData.flatMap((lead) => lead.tags)),
-  ];
+  const getUniqueTags = () => [...new Set(leads.flatMap((lead) => lead.tags))];
 
   // console.log("data", leadsData);
 
   // Filter leads based on current filters
-  const filteredLeads = leadsData.filter((lead) => {
+  const filteredLeads = leads.filter((lead) => {
     // Search query filter
     if (filters.searchQuery) {
       const query = filters.searchQuery.toLowerCase();
@@ -94,18 +97,14 @@ export function LeadsTable() {
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedLeads(visibleLeads.map((lead) => lead.id));
+      selectAll(visibleLeads.map((lead) => lead.id));
     } else {
-      setSelectedLeads([]);
+      clearSelection();
     }
   };
 
   const handleSelectLead = (leadId: string, checked: boolean) => {
-    if (checked) {
-      setSelectedLeads((prev) => [...prev, leadId]);
-    } else {
-      setSelectedLeads((prev) => prev.filter((id) => id !== leadId));
-    }
+    toggleSelect(leadId, checked);
   };
 
   const handleFilterChange = <K extends keyof Filters>(
@@ -116,34 +115,16 @@ export function LeadsTable() {
       ...prev,
       [filterType]: value,
     }));
-    setPage(1);
   };
 
   const handleCheckboxFilter = (
     filterKey: "exportType" | "tags",
     value: string
   ) => {
-    setFilters((prev) => {
-      const currentValues = prev[filterKey];
-      const exists = currentValues.includes(value);
-      const updated = exists
-        ? currentValues.filter((v) => v !== value)
-        : [...currentValues, value];
-      return { ...prev, [filterKey]: updated } as Filters;
-    });
-    setPage(1);
+    toggleCheckboxFilter(filterKey, value);
   };
 
-  const clearAllFilters = () => {
-    setFilters({
-      status: [],
-      exportType: [],
-      tags: [],
-      dateRange: "",
-      searchQuery: "",
-    });
-    setPage(1);
-  };
+  // clearAllFilters provided by store
 
   const getActiveFiltersCount = () => {
     return (
