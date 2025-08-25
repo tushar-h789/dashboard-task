@@ -4,7 +4,6 @@ import {
   Tag,
   Package,
   Settings,
-  MoreHorizontal,
   ChevronUp,
   ChevronDown,
   ChevronRight,

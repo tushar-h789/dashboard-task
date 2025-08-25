@@ -189,12 +189,12 @@ export function LeadsTable() {
       <CardHeader className="border-b border-gray-100 pb-4">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           {/* Tabs */}
-          <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+          <div className="flex overflow-x-auto no-scrollbar bg-gray-100 p-1 rounded-lg">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-10 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
+                className={`flex-shrink-0 px-6 sm:px-10 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
                   activeTab === tab.id
                     ? "bg-white text-[#171717] shadow-sm"
                     : "text-[#A3A3A3] hover:text-gray-900"
