@@ -3,141 +3,21 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { Filter, Download, Star, Crown, Plus, MoreHorizontal } from "lucide-react";
-
-// interface Lead {
-//   id: string;
-//   name: string;
-//   email: string;
-//   tags: string[];
-//   connectedWith: {
-//     name: string;
-//     email: string;
-//     avatar: string;
-//   };
-//   date: string;
-//   exportType: "export" | "star" | "crown";
-// }
-
-// const leadsData: Lead[] = [
-//   {
-//     id: "1",
-//     name: "Efehan Coskun",
-//     email: "efehan@acme.com",
-//     tags: ["Team", "GITEX DUBAI", "Summit"],
-//     connectedWith: {
-//       name: "Efehan Coskun",
-//       email: "efehan@alignui.com",
-//       avatar: "EC",
-//     },
-//     date: "Tuesday Aug 04 - 2025",
-//     exportType: "export",
-//   },
-//   {
-//     id: "2",
-//     name: "Sarah Johnson",
-//     email: "sarah@techcorp.com",
-//     tags: ["Enterprise", "Conference"],
-//     connectedWith: {
-//       name: "Sarah Johnson",
-//       email: "sarah@alignui.com",
-//       avatar: "SJ",
-//     },
-//     date: "Tuesday Aug 04 - 2025",
-//     exportType: "star",
-//   },
-//   {
-//     id: "3",
-//     name: "Michael Chen",
-//     email: "michael@startup.io",
-//     tags: ["Startup", "Demo Day"],
-//     connectedWith: {
-//       name: "Michael Chen",
-//       email: "michael@alignui.com",
-//       avatar: "MC",
-//     },
-//     date: "Tuesday Aug 04 - 2025",
-//     exportType: "crown",
-//   },
-//   {
-//     id: "4",
-//     name: "Emma Wilson",
-//     email: "emma@designstudio.com",
-//     tags: ["Design", "Creative"],
-//     connectedWith: {
-//       name: "Emma Wilson",
-//       email: "emma@alignui.com",
-//       avatar: "EW",
-//     },
-//     date: "Tuesday Aug 04 - 2025",
-//     exportType: "export",
-//   },
-//   {
-//     id: "5",
-//     name: "David Brown",
-//     email: "david@consulting.com",
-//     tags: ["Consulting", "Strategy"],
-//     connectedWith: {
-//       name: "David Brown",
-//       email: "david@alignui.com",
-//       avatar: "DB",
-//     },
-//     date: "Tuesday Aug 04 - 2025",
-//     exportType: "star",
-//   },
-//   {
-//     id: "6",
-//     name: "Lisa Garcia",
-//     email: "lisa@marketing.com",
-//     tags: ["Marketing", "Digital"],
-//     connectedWith: {
-//       name: "Lisa Garcia",
-//       email: "lisa@alignui.com",
-//       avatar: "LG",
-//     },
-//     date: "Tuesday Aug 04 - 2025",
-//     exportType: "export",
-//   },
-//   {
-//     id: "7",
-//     name: "Alex Thompson",
-//     email: "alex@finance.com",
-//     tags: ["Finance", "Investment"],
-//     connectedWith: {
-//       name: "Alex Thompson",
-//       email: "alex@alignui.com",
-//       avatar: "AT",
-//     },
-//     date: "Tuesday Aug 04 - 2025",
-//     exportType: "crown",
-//   },
-//   {
-//     id: "8",
-//     name: "Rachel Lee",
-//     email: "rachel@healthcare.com",
-//     tags: ["Healthcare", "Innovation"],
-//     connectedWith: {
-//       name: "Rachel Lee",
-//       email: "rachel@alignui.com",
-//       avatar: "RL",
-//     },
-//     date: "Tuesday Aug 04 - 2025",
-//     exportType: "export",
-//   },
-// ];
-
-// const tabs = [
-//   { id: "leads", name: "Leads", active: true },
-//   { id: "quality", name: "Lead Quality Score", active: false },
-//   { id: "leaderboard", name: "Leaderboard", active: false },
-// ];
+import {
+  Filter,
+  Download,
+  Star,
+  Crown,
+  Plus,
+  MoreHorizontal,
+} from "lucide-react";
 
 export function LeadsTable() {
   const [selectedLeads, setSelectedLeads] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState("leads");
 
   const tabs = [
-    { id: "leads", name: "Leads", count: 156 },
+    { id: "leads", name: "Leads" },
     { id: "quality", name: "Lead Quality Score" },
     { id: "leaderboard", name: "Leaderboard" },
   ];
@@ -341,21 +221,13 @@ export function LeadsTable() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
+                className={`px-10 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
                   activeTab === tab.id
-                    ? "bg-white text-gray-900 shadow-sm"
-                    : "text-gray-600 hover:text-gray-900"
+                    ? "bg-white text-[#171717] shadow-sm"
+                    : "text-[#A3A3A3] hover:text-gray-900"
                 }`}
               >
                 {tab.name}
-                {tab.count && (
-                  <Badge
-                    variant="secondary"
-                    className="text-xs bg-gray-200 text-gray-600"
-                  >
-                    {tab.count}
-                  </Badge>
-                )}
               </button>
             ))}
           </div>
@@ -380,177 +252,199 @@ export function LeadsTable() {
 
       <CardContent className="p-0">
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-100 bg-gray-50">
-                <th className="text-left py-4 px-6 w-12">
-                  <Checkbox
-                    checked={selectedLeads.length === leadsData.length}
-                    onCheckedChange={handleSelectAll}
-                  />
-                </th>
-                <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                  Lead
-                </th>
-                <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                  Status
-                </th>
-                <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                  Tags
-                </th>
-                <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                  Connected with
-                </th>
-                <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                  Score
-                </th>
-                <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                  Date
-                </th>
-                <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {leadsData.map((lead) => {
-                const statusColors = getStatusColor(lead.status);
-                return (
-                  <tr
-                    key={lead.id}
-                    className={`border-b border-gray-50 hover:bg-gray-50 transition-colors ${
-                      selectedLeads.includes(lead.id) ? "bg-purple-25" : ""
-                    }`}
-                  >
-                    <td className="py-4 px-6">
-                      <Checkbox
-                        checked={selectedLeads.includes(lead.id)}
-                        onCheckedChange={(checked) =>
-                          handleSelectLead(lead.id, checked as boolean)
-                        }
-                      />
-                    </td>
-                    <td className="py-4 px-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                          {lead.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
+          {activeTab === "leads" && (
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-100 bg-gray-50">
+                  <th className="text-left py-4 px-6 w-12">
+                    <Checkbox
+                      checked={selectedLeads.length === leadsData.length}
+                      onCheckedChange={handleSelectAll}
+                    />
+                  </th>
+                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
+                    Lead
+                  </th>
+                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
+                    Status
+                  </th>
+                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
+                    Tags
+                  </th>
+                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
+                    Connected with
+                  </th>
+                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
+                    Score
+                  </th>
+                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
+                    Date
+                  </th>
+                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {leadsData.map((lead) => {
+                  const statusColors = getStatusColor(lead.status);
+                  return (
+                    <tr
+                      key={lead.id}
+                      className={`border-b border-gray-50 hover:bg-gray-50 transition-colors ${
+                        selectedLeads.includes(lead.id) ? "bg-purple-25" : ""
+                      }`}
+                    >
+                      <td className="py-4 px-6">
+                        <Checkbox
+                          checked={selectedLeads.includes(lead.id)}
+                          onCheckedChange={(checked) =>
+                            handleSelectLead(lead.id, checked as boolean)
+                          }
+                        />
+                      </td>
+                      <td className="py-4 px-6">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                            {lead.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </div>
+                          <div>
+                            <p className="font-semibold text-gray-900">
+                              {lead.name}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              {lead.email}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-semibold text-gray-900">
-                            {lead.name}
-                          </p>
-                          <p className="text-sm text-gray-500">{lead.email}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-6">
-                      <div
-                        className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${statusColors.bg} ${statusColors.text}`}
-                      >
+                      </td>
+                      <td className="py-4 px-6">
                         <div
-                          className={`w-2 h-2 rounded-full ${statusColors.dot}`}
-                        ></div>
-                        {lead.status}
-                      </div>
-                    </td>
-                    <td className="py-4 px-6">
-                      <div className="flex flex-wrap gap-1">
-                        {lead.tags.length > 0 ? (
-                          lead.tags.slice(0, 2).map((tag, tagIndex) => {
-                            const colors = getTagColor(tag);
-                            return (
-                              <Badge
-                                key={tagIndex}
-                                variant="outline"
-                                className={`${colors.bg} ${colors.text} ${colors.border} text-xs font-medium`}
-                              >
-                                {tag}
-                              </Badge>
-                            );
-                          })
-                        ) : (
-                          <span className="text-sm text-gray-400 italic">
-                            No tags added
-                          </span>
-                        )}
-                        {lead.tags.length > 2 && (
-                          <Badge
-                            variant="outline"
-                            className="text-xs bg-gray-50 text-gray-500"
-                          >
-                            +{lead.tags.length - 2}
-                          </Badge>
-                        )}
-                      </div>
-                    </td>
-                    <td className="py-4 px-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-700 text-xs font-semibold">
-                          {lead.connectedWith.avatar}
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-900 text-sm">
-                            {lead.connectedWith.name}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {lead.connectedWith.email}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-6">
-                      <div className="flex items-center gap-2">
-                        <div
-                          className={`text-sm font-bold ${
-                            lead.score >= 90
-                              ? "text-green-600"
-                              : lead.score >= 80
-                              ? "text-blue-600"
-                              : "text-orange-600"
-                          }`}
+                          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${statusColors.bg} ${statusColors.text}`}
                         >
-                          {lead.score}%
-                        </div>
-                        <div className="w-16 bg-gray-200 rounded-full h-2">
                           <div
-                            className={`h-2 rounded-full ${
-                              lead.score >= 90
-                                ? "bg-green-500"
-                                : lead.score >= 80
-                                ? "bg-blue-500"
-                                : "bg-orange-500"
-                            }`}
-                            style={{ width: `${lead.score}%` }}
+                            className={`w-2 h-2 rounded-full ${statusColors.dot}`}
                           ></div>
+                          {lead.status}
                         </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-6">
-                      <div className="text-sm text-gray-600">
-                        <div className="font-medium">
-                          {lead.date.split(" - ")[0]}
+                      </td>
+                      <td className="py-4 px-6">
+                        <div className="flex flex-wrap gap-1">
+                          {lead.tags.length > 0 ? (
+                            lead.tags.slice(0, 2).map((tag, tagIndex) => {
+                              const colors = getTagColor(tag);
+                              return (
+                                <Badge
+                                  key={tagIndex}
+                                  variant="outline"
+                                  className={`${colors.bg} ${colors.text} ${colors.border} text-xs font-medium`}
+                                >
+                                  {tag}
+                                </Badge>
+                              );
+                            })
+                          ) : (
+                            <span className="text-sm text-gray-400 italic">
+                              No tags added
+                            </span>
+                          )}
+                          {lead.tags.length > 2 && (
+                            <Badge
+                              variant="outline"
+                              className="text-xs bg-gray-50 text-gray-500"
+                            >
+                              +{lead.tags.length - 2}
+                            </Badge>
+                          )}
                         </div>
-                        <div className="text-xs text-gray-400">
-                          {lead.date.split(" - ")[1]}
+                      </td>
+                      <td className="py-4 px-6">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-700 text-xs font-semibold">
+                            {lead.connectedWith.avatar}
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900 text-sm">
+                              {lead.connectedWith.name}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {lead.connectedWith.email}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-6">
-                      <div className="flex items-center gap-2">
-                        {renderExportIcon(lead.exportType)}
-                        <Button variant="ghost" size="sm" className="p-1">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      </td>
+                      <td className="py-4 px-6">
+                        <div className="flex items-center gap-2">
+                          <div
+                            className={`text-sm font-bold ${
+                              lead.score >= 90
+                                ? "text-green-600"
+                                : lead.score >= 80
+                                ? "text-blue-600"
+                                : "text-orange-600"
+                            }`}
+                          >
+                            {lead.score}%
+                          </div>
+                          <div className="w-16 bg-gray-200 rounded-full h-2">
+                            <div
+                              className={`h-2 rounded-full ${
+                                lead.score >= 90
+                                  ? "bg-green-500"
+                                  : lead.score >= 80
+                                  ? "bg-blue-500"
+                                  : "bg-orange-500"
+                              }`}
+                              style={{ width: `${lead.score}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-4 px-6">
+                        <div className="text-sm text-gray-600">
+                          <div className="font-medium">
+                            {lead.date.split(" - ")[0]}
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            {lead.date.split(" - ")[1]}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-4 px-6">
+                        <div className="flex items-center gap-2">
+                          {renderExportIcon(lead.exportType)}
+                          <Button variant="ghost" size="sm" className="p-1">
+                            <MoreHorizontal className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
+
+          {activeTab === "quality" && (
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">
+                Lead Quality Score
+              </h2>
+              {/* Display Lead Quality Score Content */}
+            </div>
+          )}
+
+          {activeTab === "leaderboard" && (
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">
+                Leaderboard
+              </h2>
+              {/* Display Leaderboard Content */}
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

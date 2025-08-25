@@ -14,11 +14,11 @@ export function Header({
   return (
     <header
       className={`
-      bg-white border-b border-gray-200 transition-all duration-300 h-16 flex items-center
+      bg-white border-b border-gray-200 transition-all duration-300 h-16 flex items-center mt-[25px] pb-6
       ${isMobile ? "ml-0" : sidebarOpen ? "ml-64" : "ml-16"}
     `}
     >
-      <div className="flex items-center justify-between px-6 py-4 w-full">
+      <div className="flex items-center justify-between px-6 py-4 w-full ">
         <div className="flex items-center gap-4">
           {isMobile && (
             <Button
