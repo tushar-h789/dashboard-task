@@ -22,6 +22,16 @@ export function LeadsTable() {
     { id: "leaderboard", name: "Leaderboard" },
   ];
 
+  // Define table headers config at the top
+  const tableHeaders = [
+    { id: "checkbox", label: "", isCheckbox: true },
+    { id: "lead", label: "Lead" },
+    { id: "tags", label: "Tags" },
+    { id: "connectedWith", label: "Connected with" },
+    { id: "date", label: "Date" },
+    { id: "actions", label: "Export" },
+  ];
+
   const leadsData = [
     {
       id: "1",
@@ -163,33 +173,6 @@ export function LeadsTable() {
     );
   };
 
-  const getStatusColor = (status: string) => {
-    const colors = {
-      Active: {
-        bg: "bg-green-50",
-        text: "text-green-700",
-        dot: "bg-green-500",
-      },
-      Pending: {
-        bg: "bg-yellow-50",
-        text: "text-yellow-700",
-        dot: "bg-yellow-500",
-      },
-      Converted: {
-        bg: "bg-blue-50",
-        text: "text-blue-700",
-        dot: "bg-blue-500",
-      },
-    };
-    return (
-      colors[status as keyof typeof colors] || {
-        bg: "bg-gray-50",
-        text: "text-gray-700",
-        dot: "bg-gray-500",
-      }
-    );
-  };
-
   const renderExportIcon = (type: string) => {
     switch (type) {
       case "star":
@@ -256,38 +239,30 @@ export function LeadsTable() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50">
-                  <th className="text-left py-4 px-6 w-12">
-                    <Checkbox
-                      checked={selectedLeads.length === leadsData.length}
-                      onCheckedChange={handleSelectAll}
-                    />
-                  </th>
-                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                    Lead
-                  </th>
-                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                    Status
-                  </th>
-                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                    Tags
-                  </th>
-                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                    Connected with
-                  </th>
-                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                    Score
-                  </th>
-                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                    Date
-                  </th>
-                  <th className="text-left py-4 px-6 font-semibold text-gray-900">
-                    Actions
-                  </th>
+                  {tableHeaders.map((header) => (
+                    <th
+                      key={header.id}
+                      className={`text-left py-4 px-6 ${
+                        header.id === "checkbox"
+                          ? "w-12"
+                          : "text-sm font-normal text-[#5C5C5C]"
+                      }`}
+                    >
+                      {header.isCheckbox ? (
+                        <Checkbox
+                          checked={selectedLeads.length === leadsData.length}
+                          onCheckedChange={handleSelectAll}
+                        />
+                      ) : (
+                        header.label
+                      )}
+                    </th>
+                  ))}
                 </tr>
               </thead>
+
               <tbody>
                 {leadsData.map((lead) => {
-                  const statusColors = getStatusColor(lead.status);
                   return (
                     <tr
                       key={lead.id}
@@ -303,34 +278,25 @@ export function LeadsTable() {
                           }
                         />
                       </td>
-                      <td className="py-4 px-6">
+                      <td className="py-3 px-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                          <div className="w-10 h-10 bg-[#FFC0C5] to-pink-500 rounded-full flex items-center justify-center text-[#681219] text-sm font-bold">
                             {lead.name
                               .split(" ")
                               .map((n) => n[0])
                               .join("")}
                           </div>
                           <div>
-                            <p className="font-semibold text-gray-900">
+                            <p className="text-sm  text-[#171717]">
                               {lead.name}
                             </p>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-[12px] text-[#5C5C5C]">
                               {lead.email}
                             </p>
                           </div>
                         </div>
                       </td>
-                      <td className="py-4 px-6">
-                        <div
-                          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${statusColors.bg} ${statusColors.text}`}
-                        >
-                          <div
-                            className={`w-2 h-2 rounded-full ${statusColors.dot}`}
-                          ></div>
-                          {lead.status}
-                        </div>
-                      </td>
+
                       <td className="py-4 px-6">
                         <div className="flex flex-wrap gap-1">
                           {lead.tags.length > 0 ? (
@@ -376,33 +342,7 @@ export function LeadsTable() {
                           </div>
                         </div>
                       </td>
-                      <td className="py-4 px-6">
-                        <div className="flex items-center gap-2">
-                          <div
-                            className={`text-sm font-bold ${
-                              lead.score >= 90
-                                ? "text-green-600"
-                                : lead.score >= 80
-                                ? "text-blue-600"
-                                : "text-orange-600"
-                            }`}
-                          >
-                            {lead.score}%
-                          </div>
-                          <div className="w-16 bg-gray-200 rounded-full h-2">
-                            <div
-                              className={`h-2 rounded-full ${
-                                lead.score >= 90
-                                  ? "bg-green-500"
-                                  : lead.score >= 80
-                                  ? "bg-blue-500"
-                                  : "bg-orange-500"
-                              }`}
-                              style={{ width: `${lead.score}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      </td>
+
                       <td className="py-4 px-6">
                         <div className="text-sm text-gray-600">
                           <div className="font-medium">
