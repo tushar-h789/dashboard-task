@@ -232,17 +232,17 @@ export function Sidebar({
               <div className="flex items-center gap-2 mb-2">
                 <div className="flex -space-x-2">
                   <img
-                    src="/src/assets/images/avatar-02.png"
+                    src="/images/avatar-02.png"
                     alt="avatar"
                     className="w-7 h-7 rounded-full ring-2 ring-white object-cover"
                   />
                   <img
-                    src="/src/assets/images/avatar-01.png"
+                    src="/images/avatar-01.png"
                     alt="avatar"
                     className="w-7 h-7 rounded-full ring-2 ring-white object-cover"
                   />
                   <img
-                    src="/src/assets/images/avatar-03.png"
+                    src="/images/avatar-03.png"
                     alt="avatar"
                     className="w-7 h-7 rounded-full ring-2 ring-white object-cover"
                   />
@@ -282,7 +282,7 @@ export function Sidebar({
           >
             <div className="w-10 h-10 rounded-full border flex items-center justify-center text-white text-sm font-bold">
               <img
-                src="/src/assets/images/avatar-01.png"
+                src="/images/avatar-01.png"
                 alt="avatar"
                 className="w-7 h-7 rounded-full ring-2 ring-white object-cover"
               />

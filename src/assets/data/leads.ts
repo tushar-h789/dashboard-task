@@ -7,7 +7,7 @@ export const leadsData: Lead[] = [
     email: "efehan@acme.com",
     tags: ["Team", "Enterprise", "GITEX DUBAI", "Summit", "Team"],
     connectedWith: {
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
       name: "Efehan Coskun",
       email: "efehan@alignui.com",
     },
@@ -24,7 +24,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Hande Yilmaz",
       email: "hande@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Monday Aug 03 - 2025",
     exportType: "star",
@@ -39,7 +39,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Demir Vural",
       email: "demir@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Tuesday Aug 04 - 2025",
     exportType: "crown",
@@ -54,7 +54,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Sarah Johnson",
       email: "sarah@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Tuesday Aug 04 - 2025",
     exportType: "export",
@@ -69,7 +69,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Michael Chen",
       email: "michael@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Tuesday Aug 04 - 2025",
     exportType: "crown",
@@ -84,7 +84,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Aisha Khan",
       email: "aisha@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Wednesday Aug 05 - 2025",
     exportType: "star",
@@ -99,7 +99,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Carlos Ramirez",
       email: "carlos@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Thursday Aug 06 - 2025",
     exportType: "export",
@@ -114,7 +114,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Emily Davis",
       email: "emily@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Friday Aug 07 - 2025",
     exportType: "crown",
@@ -129,7 +129,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "James Anderson",
       email: "james@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Saturday Aug 08 - 2025",
     exportType: "export",
@@ -144,7 +144,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Sophia Lee",
       email: "sophia@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Sunday Aug 09 - 2025",
     exportType: "star",
@@ -159,7 +159,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Oliver Brown",
       email: "oliver@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Monday Aug 10 - 2025",
     exportType: "crown",
@@ -174,7 +174,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Mia Martinez",
       email: "mia@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Tuesday Aug 11 - 2025",
     exportType: "export",
@@ -189,7 +189,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "William Scott",
       email: "william@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Wednesday Aug 12 - 2025",
     exportType: "export",
@@ -204,7 +204,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Isabella Garcia",
       email: "isabella@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Thursday Aug 13 - 2025",
     exportType: "crown",
@@ -219,7 +219,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Ethan Wilson",
       email: "ethan@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Friday Aug 14 - 2025",
     exportType: "star",
@@ -234,7 +234,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Ava Patel",
       email: "ava@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Saturday Aug 15 - 2025",
     exportType: "export",
@@ -249,7 +249,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Liam Thompson",
       email: "liam@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Sunday Aug 16 - 2025",
     exportType: "crown",
@@ -264,7 +264,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Charlotte White",
       email: "charlotte@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Monday Aug 17 - 2025",
     exportType: "export",
@@ -279,7 +279,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Benjamin Clark",
       email: "benjamin@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Tuesday Aug 18 - 2025",
     exportType: "star",
@@ -294,7 +294,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Amelia Lewis",
       email: "amelia@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Wednesday Aug 19 - 2025",
     exportType: "crown",
@@ -309,7 +309,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Henry Walker",
       email: "henry@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Thursday Aug 20 - 2025",
     exportType: "export",
@@ -324,7 +324,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Ella Hall",
       email: "ella@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Friday Aug 21 - 2025",
     exportType: "star",
@@ -339,7 +339,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Daniel Young",
       email: "daniel@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Saturday Aug 22 - 2025",
     exportType: "crown",
@@ -354,7 +354,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Grace King",
       email: "grace@alignui.com",
-      avatar: "/src/assets/images/profile-avatar.png",
+      avatar: "/images/profile-avatar.png",
     },
     date: "Sunday Aug 23 - 2025",
     exportType: "export",
@@ -369,7 +369,7 @@ export const leadsData: Lead[] = [
     connectedWith: {
       name: "Alexander Wright",
       email: "alexander@alignui.com",
-      avatar: "/src/assets/images/connected-avater.png",
+      avatar: "/images/connected-avater.png",
     },
     date: "Monday Aug 24 - 2025",
     exportType: "crown",

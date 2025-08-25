@@ -36,7 +36,7 @@ export function Header({
           <div className="flex items-center gap-3 sm:gap-[14px] min-w-0">
             {/* Avatar */}
             <img
-              src="/src/assets/images/profile-avatar.png"
+              src="/images/profile-avatar.png"
               alt="user avatar"
               className="w-9 h-9 sm:w-12 sm:h-12 rounded-full"
             />
@@ -62,7 +62,7 @@ export function Header({
           <div className="relative">
             <Button variant="ghost" size="sm" className="p-1.5 sm:p-2 relative">
               <img
-                src="/src/assets/images/notification.png"
+                src="/images/notification.png"
                 alt="notification"
                 className="w-5 h-5 sm:w-auto sm:h-auto"
               />
