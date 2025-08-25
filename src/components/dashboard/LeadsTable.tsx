@@ -11,6 +11,9 @@ import {
   Plus,
   MoreHorizontal,
 } from "lucide-react";
+import { ExportStarIcon } from "@/assets/icons/export-start-icon";
+import { ExportPIcon } from "@/assets/icons/export-p-icon";
+import { ExportHubspotIcon } from "@/assets/icons/export-hubspot-icon";
 
 export function LeadsTable() {
   const [selectedLeads, setSelectedLeads] = useState<string[]>([]);
@@ -142,7 +145,7 @@ export function LeadsTable() {
         avatar: "/src/assets/images/connected-avater.png",
       },
       date: "Tuesday Aug 04 - 2025",
-      exportType: "star",
+      exportType: "crown",
       status: "Active",
       score: 88,
     },
@@ -214,13 +217,13 @@ export function LeadsTable() {
   const renderExportIcon = (type: string) => {
     switch (type) {
       case "star":
-        return <Star className="w-5 h-5 text-orange-500 fill-orange-500" />;
+        return <ExportStarIcon className="w-7 h-7" />;
       case "crown":
         return (
           <div className="flex items-center gap-1">
-            <Crown className="w-4 h-4 text-green-500 fill-green-500" />
-            <span className="text-green-500 text-sm font-bold">P</span>
-            <span className="text-yellow-500 text-sm">🎯</span>
+            <ExportStarIcon className="w-7 h-7 " />
+            <ExportPIcon className="w-7 h-7 " />
+            <ExportHubspotIcon className="w-7 h-7 " />
           </div>
         );
       default:
@@ -440,11 +443,8 @@ export function LeadsTable() {
                         </div>
                       </td>
                       <td className="py-4 px-6">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-center gap-2 w-10">
                           {renderExportIcon(lead.exportType)}
-                          <Button variant="ghost" size="sm" className="p-1">
-                            <MoreHorizontal className="w-4 h-4" />
-                          </Button>
                         </div>
                       </td>
                     </tr>
