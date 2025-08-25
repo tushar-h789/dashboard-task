@@ -19,7 +19,6 @@ import { IntegrationsIcon } from "@/assets/icons/integrations-icon";
 import { FaqsIcon } from "@/assets/icons/faqs-icon";
 import { useNavigate, useLocation } from "react-router-dom";
 
-// ====== SIDEBAR COMPONENT ======
 export function Sidebar({
   isOpen,
   onToggle,
@@ -181,14 +180,6 @@ export function Sidebar({
                             </span>
                           )}
                         </div>
-                        {/* {(isOpen || isMobile) && subItem.count && (
-                          <Badge
-                            variant="secondary"
-                            className="text-xs bg-gray-100 text-gray-600"
-                          >
-                            {subItem.count}
-                          </Badge>
-                        )} */}
                       </button>
                     );
                   })}
@@ -201,7 +192,7 @@ export function Sidebar({
               return (
                 <button
                   key={index}
-                  onClick={() => navigate(item.path)}
+                  onClick={() => navigate(item.path || "/")}
                   className={`
                     w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 mb-2
                     ${

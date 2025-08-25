@@ -8,6 +8,7 @@ import type { Lead } from "@/types/lead";
 import type { Filters } from "@/types/filters";
 import { LeadsFiltersButton, LeadsFiltersContent } from "./LeadsFiltersPanel";
 import { LeadRow } from "./LeadRow";
+import { Pagination } from "@/components/ui/pagination";
 
 export function LeadsTable() {
   const [selectedLeads, setSelectedLeads] = useState<string[]>([]);
@@ -24,6 +25,8 @@ export function LeadsTable() {
     dateRange: "",
     searchQuery: "",
   });
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
 
   const tabs = [
     { id: "leads", name: "Leads" },
@@ -48,6 +51,8 @@ export function LeadsTable() {
   const getUniqueTags = () => [
     ...new Set(leadsData.flatMap((lead) => lead.tags)),
   ];
+
+  // console.log("data", leadsData);
 
   // Filter leads based on current filters
   const filteredLeads = leadsData.filter((lead) => {
@@ -81,9 +86,15 @@ export function LeadsTable() {
     return true;
   });
 
+  // Pagination calculations
+  const total = filteredLeads.length;
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const visibleLeads = filteredLeads.slice(startIndex, endIndex);
+
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedLeads(filteredLeads.map((lead) => lead.id));
+      setSelectedLeads(visibleLeads.map((lead) => lead.id));
     } else {
       setSelectedLeads([]);
     }
@@ -105,6 +116,7 @@ export function LeadsTable() {
       ...prev,
       [filterType]: value,
     }));
+    setPage(1);
   };
 
   const handleCheckboxFilter = (
@@ -119,6 +131,7 @@ export function LeadsTable() {
         : [...currentValues, value];
       return { ...prev, [filterKey]: updated } as Filters;
     });
+    setPage(1);
   };
 
   const clearAllFilters = () => {
@@ -129,6 +142,7 @@ export function LeadsTable() {
       dateRange: "",
       searchQuery: "",
     });
+    setPage(1);
   };
 
   const getActiveFiltersCount = () => {
@@ -177,17 +191,17 @@ export function LeadsTable() {
         text: "text-yellow-700",
         border: "border-yellow-200",
       },
-    };
+    } as const;
     return (
-      colors[tag as keyof typeof colors] || {
+      (colors as Record<string, { bg: string; text: string; border: string }>)[
+        tag
+      ] || {
         bg: "bg-gray-50",
         text: "text-gray-700",
         border: "border-gray-200",
       }
     );
   };
-
-  // Row export icon rendering is handled inside LeadRow
 
   return (
     <Card className="shadow-sm">
@@ -254,8 +268,8 @@ export function LeadsTable() {
                       {header.isCheckbox ? (
                         <Checkbox
                           checked={
-                            selectedLeads.length === filteredLeads.length &&
-                            filteredLeads.length > 0
+                            selectedLeads.length === visibleLeads.length &&
+                            visibleLeads.length > 0
                           }
                           onCheckedChange={handleSelectAll}
                         />
@@ -268,7 +282,7 @@ export function LeadsTable() {
               </thead>
 
               <tbody>
-                {filteredLeads.map((lead) => (
+                {visibleLeads.map((lead) => (
                   <LeadRow
                     key={lead.id}
                     lead={lead}
@@ -309,12 +323,20 @@ export function LeadsTable() {
             </div>
           )}
 
+          {activeTab === "leads" && (
+            <Pagination
+              page={page}
+              pageSize={pageSize}
+              total={total}
+              onPageChange={setPage}
+            />
+          )}
+
           {activeTab === "quality" && (
             <div>
               <h2 className="text-xl font-semibold text-gray-900">
                 Lead Quality Score
               </h2>
-              {/* Display Lead Quality Score Content */}
             </div>
           )}
 
@@ -323,7 +345,6 @@ export function LeadsTable() {
               <h2 className="text-xl font-semibold text-gray-900">
                 Leaderboard
               </h2>
-              {/* Display Leaderboard Content */}
             </div>
           )}
         </div>

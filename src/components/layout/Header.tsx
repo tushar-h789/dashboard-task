@@ -56,7 +56,6 @@ export function Header({
           </div>
           <div className="relative">
             <Button variant="ghost" size="sm" className="p-2 relative">
-              {/* <NotificationIcon className="w-12 h-12" /> */}
               <img
                 src="/src/assets/images/notification.png"
                 alt="notification"
@@ -64,10 +63,6 @@ export function Header({
               />
             </Button>
           </div>
-          {/* <Button variant="outline" size="sm" className="hidden md:flex">
-            <Plus className="w-4 h-4 mr-2" />
-            Add Lead
-          </Button> */}
         </div>
       </div>
     </header>
