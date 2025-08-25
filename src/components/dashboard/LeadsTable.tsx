@@ -15,6 +15,24 @@ import {
 export function LeadsTable() {
   const [selectedLeads, setSelectedLeads] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState("leads");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  interface Lead {
+    id: string;
+    name: string;
+    email: string;
+    tags: string[];
+    connectedWith: {
+      name: string;
+      email: string;
+      avatar: string;
+    };
+    date: string;
+    exportType: "export" | "star" | "crown";
+    status: string;
+    score: number;
+  }
+
+  const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
 
   const tabs = [
     { id: "leads", name: "Leads" },
@@ -32,12 +50,12 @@ export function LeadsTable() {
     { id: "actions", label: "Export" },
   ];
 
-  const leadsData = [
+  const leadsData: Lead[] = [
     {
       id: "1",
       name: "Efehan Coskun",
       email: "efehan@acme.com",
-      tags: ["Team", "Enterprise"],
+      tags: ["Team", "Enterprise", "GITEX DUBAI", "Summit", "Team"],
       connectedWith: {
         name: "Efehan Coskun",
         email: "efehan@alignui.com",
@@ -67,7 +85,15 @@ export function LeadsTable() {
       id: "3",
       name: "Demir Vural",
       email: "demir@test.com",
-      tags: ["GITEX DUBAI", "Summit"],
+      tags: [
+        "GITEX DUBAI",
+        "Summit",
+        "Team",
+        "Enterprise",
+        "GITEX DUBAI",
+        "Summit",
+        "Team",
+      ],
       connectedWith: {
         name: "Demir Vural",
         email: "demir@alignui.com",
@@ -82,7 +108,14 @@ export function LeadsTable() {
       id: "4",
       name: "Sarah Johnson",
       email: "sarah@techcorp.com",
-      tags: ["Enterprise", "Conference"],
+      tags: [
+        "Enterprise",
+        "Conference",
+        "Team",
+        "Enterprise",
+        "GITEX DUBAI",
+        "Summit",
+      ],
       connectedWith: {
         name: "Sarah Johnson",
         email: "sarah@alignui.com",
@@ -97,7 +130,7 @@ export function LeadsTable() {
       id: "5",
       name: "Michael Chen",
       email: "michael@startup.io",
-      tags: ["Startup", "Demo Day"],
+      tags: ["Startup", "Demo Day", "Team", "Enterprise"],
       connectedWith: {
         name: "Michael Chen",
         email: "michael@alignui.com",
@@ -300,7 +333,7 @@ export function LeadsTable() {
                       <td className="py-4 px-6">
                         <div className="flex flex-wrap gap-1">
                           {lead.tags.length > 0 ? (
-                            lead.tags.slice(0, 2).map((tag, tagIndex) => {
+                            lead.tags.slice(0, 1).map((tag, tagIndex) => {
                               const colors = getTagColor(tag);
                               return (
                                 <Badge
@@ -317,15 +350,51 @@ export function LeadsTable() {
                               No tags added
                             </span>
                           )}
-                          {lead.tags.length > 2 && (
+                          {lead.tags.length > 1 && (
                             <Badge
                               variant="outline"
-                              className="text-xs bg-gray-50 text-gray-500"
+                              className="text-xs bg-gray-50 text-gray-500 cursor-pointer"
+                              onClick={() => {
+                                setSelectedLead(lead);
+                                setIsModalOpen(true);
+                              }}
                             >
-                              +{lead.tags.length - 2}
+                              +{lead.tags.length - 1}
                             </Badge>
                           )}
                         </div>
+                        {/* Show Modal in the lead */}
+                        {isModalOpen && selectedLead && (
+                          <div className="fixed inset-0 flex justify-center items-center bg-black/10 bg-opacity-50 z-50">
+                            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                              <div className="flex justify-between items-center">
+                                <h3 className="text-lg font-semibold">
+                                  Lead Tags
+                                </h3>
+                                <button
+                                  onClick={() => setIsModalOpen(false)}
+                                  className="text-gray-600 hover:text-gray-900"
+                                >
+                                  &times;
+                                </button>
+                              </div>
+                              <div className="mt-4">
+                                <ul>
+                                  {selectedLead.tags.map(
+                                    (tag: string, index: number) => (
+                                      <li
+                                        key={index}
+                                        className="text-md text-gray-700"
+                                      >
+                                        {tag}
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </td>
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-3">
