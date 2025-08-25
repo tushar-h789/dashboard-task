@@ -78,7 +78,7 @@ export function LeadsTable() {
         email: "hande@alignui.com",
         avatar: "/src/assets/images/profile-avatar.png",
       },
-      date: "Tuesday Aug 04 - 2025",
+      date: "Monday Aug 03 - 2025",
       exportType: "star",
       status: "Pending",
       score: 85,
@@ -430,11 +430,11 @@ export function LeadsTable() {
                       </td>
 
                       <td className="py-4 px-6">
-                        <div className="text-sm text-gray-600">
-                          <div className="font-medium">
+                        <div className="">
+                          <div className="text-sm text-[#171717]">
                             {lead.date.split(" - ")[0]}
                           </div>
-                          <div className="text-xs text-gray-400">
+                          <div className="text-xs text-[#5C5C5C]">
                             {lead.date.split(" - ")[1]}
                           </div>
                         </div>
