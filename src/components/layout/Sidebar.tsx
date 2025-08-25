@@ -7,6 +7,7 @@ import {
   MoreHorizontal,
   ChevronUp,
   ChevronDown,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LogoIcon } from "@/assets/icons/logo-icon";
@@ -18,6 +19,8 @@ import { CustomizationIcon } from "@/assets/icons/customization-icon";
 import { IntegrationsIcon } from "@/assets/icons/integrations-icon";
 import { FaqsIcon } from "@/assets/icons/faqs-icon";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { VerifiedIcon } from "@/assets/icons/verified-icon";
 
 export function Sidebar({
   isOpen,
@@ -30,6 +33,7 @@ export function Sidebar({
 }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [showOnboarding, setShowOnboarding] = useState(true);
 
   const sidebarItems = [
     { icon: HomeIcon, label: "Home", path: "/home" },
@@ -137,7 +141,7 @@ export function Sidebar({
         </div>
 
         {/* Sidebar Content */}
-        <div className="p-3 overflow-y-auto h-[calc(100%-8rem)]">
+        <div className="p-3 overflow-y-auto h-[calc(100%-8rem)] pb-12">
           {sidebarItems.map((item, index) => {
             if (item.category) {
               return (
@@ -215,6 +219,59 @@ export function Sidebar({
               );
             }
           })}
+
+          {/* Onboarding Popup (shows on first visit and on reload; can be dismissed) */}
+          {(isOpen || isMobile) && showOnboarding && (
+            <div className="mt-4 p-3 border border-gray-200 rounded-2xl bg-white shadow-sm relative">
+              <button
+                aria-label="Close"
+                className="absolute top-2.5 right-2.5 text-gray-400 hover:text-gray-600"
+                onClick={() => setShowOnboarding(false)}
+              >
+                <X className="w-4 h-4" />
+              </button>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="flex -space-x-2">
+                  <img
+                    src="/src/assets/images/avatar-02.png"
+                    alt="avatar"
+                    className="w-7 h-7 rounded-full ring-2 ring-white object-cover"
+                  />
+                  <img
+                    src="/src/assets/images/avatar-01.png"
+                    alt="avatar"
+                    className="w-7 h-7 rounded-full ring-2 ring-white object-cover"
+                  />
+                  <img
+                    src="/src/assets/images/avatar-03.png"
+                    alt="avatar"
+                    className="w-7 h-7 rounded-full ring-2 ring-white object-cover"
+                  />
+                </div>
+                <span className="text-[11px] text-gray-600 bg-gray-100 rounded-full px-2 py-0.5">
+                  +4
+                </span>
+              </div>
+              <p className="text-[14px] font-semibold text-gray-900 leading-snug">
+                Onboard your team members
+              </p>
+              <div className="mt-2 h-2 w-full bg-gray-200 rounded-full">
+                <div
+                  className="h-2 bg-green-500 rounded-full"
+                  style={{ width: "40%" }}
+                />
+              </div>
+              <p className="mt-2 text-[12px] text-gray-600">
+                Upload your team via CSV
+              </p>
+              <button
+                className="mt-3 inline-flex items-center gap-1 text-[13px] text-gray-900 hover:underline"
+                onClick={() => navigate("/members")}
+              >
+                Onboard your team <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* User Profile */}
@@ -224,13 +281,18 @@ export function Sidebar({
               !isOpen && !isMobile ? "justify-center" : ""
             }`}
           >
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-sm font-bold">
-              SW
+            <div className="w-10 h-10 rounded-full border flex items-center justify-center text-white text-sm font-bold">
+              <img
+                src="/src/assets/images/avatar-01.png"
+                alt="avatar"
+                className="w-7 h-7 rounded-full ring-2 ring-white object-cover"
+              />
             </div>
             {(isOpen || isMobile) && (
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="flex items-center gap-1 text-sm font-semibold text-gray-900">
                   Sophia Williams
+                  <VerifiedIcon className="w-3 h-3" />
                 </p>
                 <p className="text-xs text-gray-500 truncate">
                   sophia@alignui.com
@@ -239,7 +301,7 @@ export function Sidebar({
             )}
             {(isOpen || isMobile) && (
               <Button variant="ghost" size="sm" className="p-1">
-                <MoreHorizontal className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4" />
               </Button>
             )}
           </div>
