@@ -280,7 +280,12 @@ export function LeadsTable() {
 
           {/* Tags Modal rendered once at parent level */}
           {isModalOpen && selectedLead && (
-            <div className="fixed inset-0 flex justify-center items-center bg-black/10 bg-opacity-50 z-50">
+            <div
+              className="fixed inset-0 flex justify-center items-center bg-black/40 bg-opacity-50 z-50"
+              onClick={(e) => {
+                if (e.currentTarget === e.target) setIsModalOpen(false);
+              }}
+            >
               <div className="bg-white p-6 rounded-lg shadow-lg w-96">
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-semibold">Lead Tags</h3>
